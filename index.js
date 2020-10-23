@@ -301,7 +301,7 @@ MochaJUnitReporter.prototype.getTestcaseData = function(test, err) {
     testcase: [{
       _attr: {
         name: flipClassAndName ? classname : name,
-        time: (typeof test.duration === 'undefined') ? 0 : test.duration / 1000,
+        time: (typeof test.duration === 'undefined') ? 0 : (test.duration / 1000).toFixed(2),
         classname: flipClassAndName ? name : classname
       }
     }]
@@ -408,9 +408,9 @@ MochaJUnitReporter.prototype.getXml = function(testsuites) {
       _suiteAttr.skipped += Number('skipped' in lastNode);
       _suiteAttr.failures += Number('failure' in lastNode);
       suiteTime += testcase.testcase[0]._attr.time;
-      testcase.testcase[0]._attr.time = testcase.testcase[0]._attr.time.toFixed(4);
+      testcase.testcase[0]._attr.time = testcase.testcase[0]._attr.time.toFixed(2);
     });
-    _suiteAttr.time = suiteTime.toFixed(4);
+    _suiteAttr.time = suiteTime.toFixed(2);
 
     if (antMode) {
       missingProps = ['system-out', 'system-err'];
